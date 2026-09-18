@@ -1,0 +1,60 @@
+/* ---------- Body ---------- */
+
+body{
+    background: linear-gradient(to right,#6a11cb,#2575fc);
+    min-height:100vh;
+}
+
+
+/* ---------- Buttons ---------- */
+
+.btn{
+    border-radius:25px;
+    transition:0.3s;
+}
+
+.btn-primary{
+    background:#6a11cb;
+    border:none;
+}
+
+.btn-primary:hover{
+    background:#4b0fa3;
+}
+
+
+/* ---------- Cards ---------- */
+
+.card{
+    border-radius:20px;
+    transition:all 0.3s ease;
+    background:rgba(255,255,255,0.95);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0px 10px 20px rgba(0,0,0,0.3);
+}
+
+
+/* ---------- Card Images ---------- */
+
+.card-img-top{
+    height:200px;
+    object-fit:cover;
+}
+
+
+/* ---------- Forms ---------- */
+
+.form-control,
+.form-select{
+    border-radius:15px;
+}
+
+
+/* ---------- Navbar ---------- */
+
+.navbar{
+    box-shadow:0px 5px 15px rgba(0,0,0,0.2);
+}
