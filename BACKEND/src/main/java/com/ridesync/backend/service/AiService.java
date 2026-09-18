@@ -68,6 +68,8 @@ public class AiService {
                     .build();
 
             HttpResponse<String> httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println("GEMINI STATUS: " + httpResponse.statusCode());
+System.out.println("GEMINI RESPONSE: " + httpResponse.body());
             if (httpResponse.statusCode() >= 200 && httpResponse.statusCode() < 300) {
                 String text = extractFirstText(httpResponse.body());
                 if (text != null && !text.isBlank()) {
@@ -76,8 +78,8 @@ public class AiService {
                     return response;
                 }
             }
-        } catch (Exception ignored) {
-            // Fall through to local fallback so the demo never crashes.
+        } catch (Exception e) {
+    e.printStackTrace();
         }
 
         response.put("response", fallback(message));

@@ -24,9 +24,9 @@ export default function Topbar({ title, subtitle }) {
 
         <div className="profile-box">
           <img
-            src="https://i.pravatar.cc/100"
-            alt="Profile"
-          />
+  src="/images/profile 1.jpg"
+  alt="Profile"
+/>
 
           <div>
             <h6 className="mb-0">

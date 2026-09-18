@@ -1,6 +1,26 @@
 "use client";
 
+import { useState } from "react";
+
 export default function ProfileCard() {
+  const [editing, setEditing] = useState(false);
+
+  const [profile, setProfile] = useState({
+    name: "Manish",
+    collegeId: "GCET12345",
+    email: "manish@gcet.edu.in",
+    phone: "+91 9876543210",
+    department: "Artificial Intelligence & Machine Learning",
+    year: "4th Year",
+  });
+
+  const handleChange = (e) => {
+    setProfile({
+      ...profile,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <div className="card shadow border-0 rounded-4">
       <div className="card-body p-4">
@@ -8,15 +28,16 @@ export default function ProfileCard() {
         <div className="text-center mb-4">
 
           <img
-            src="https://i.pravatar.cc/150"
+            src="/images/profile.jpg"
             alt="Profile"
             className="rounded-circle mb-3"
             width="120"
             height="120"
+            style={{ objectFit: "cover" }}
           />
 
           <h3 className="fw-bold mb-1">
-            Manish
+            {profile.name}
           </h3>
 
           <p className="text-muted">
@@ -31,11 +52,12 @@ export default function ProfileCard() {
             <label className="form-label fw-semibold">
               Full Name
             </label>
-
             <input
               className="form-control"
-              value="Manish"
-              readOnly
+              name="name"
+              value={profile.name}
+              readOnly={!editing}
+              onChange={handleChange}
             />
           </div>
 
@@ -43,11 +65,12 @@ export default function ProfileCard() {
             <label className="form-label fw-semibold">
               College ID
             </label>
-
             <input
               className="form-control"
-              value="GCET12345"
-              readOnly
+              name="collegeId"
+              value={profile.collegeId}
+              readOnly={!editing}
+              onChange={handleChange}
             />
           </div>
 
@@ -55,11 +78,12 @@ export default function ProfileCard() {
             <label className="form-label fw-semibold">
               Email
             </label>
-
             <input
               className="form-control"
-              value="manish@gcet.edu.in"
-              readOnly
+              name="email"
+              value={profile.email}
+              readOnly={!editing}
+              onChange={handleChange}
             />
           </div>
 
@@ -67,11 +91,12 @@ export default function ProfileCard() {
             <label className="form-label fw-semibold">
               Phone Number
             </label>
-
             <input
               className="form-control"
-              value="+91 9876543210"
-              readOnly
+              name="phone"
+              value={profile.phone}
+              readOnly={!editing}
+              onChange={handleChange}
             />
           </div>
 
@@ -79,11 +104,12 @@ export default function ProfileCard() {
             <label className="form-label fw-semibold">
               Department
             </label>
-
             <input
               className="form-control"
-              value="Artificial Intelligence & Machine Learning"
-              readOnly
+              name="department"
+              value={profile.department}
+              readOnly={!editing}
+              onChange={handleChange}
             />
           </div>
 
@@ -91,11 +117,12 @@ export default function ProfileCard() {
             <label className="form-label fw-semibold">
               Year
             </label>
-
             <input
               className="form-control"
-              value="4th Year"
-              readOnly
+              name="year"
+              value={profile.year}
+              readOnly={!editing}
+              onChange={handleChange}
             />
           </div>
 
@@ -103,8 +130,11 @@ export default function ProfileCard() {
 
         <div className="text-end mt-4">
 
-          <button className="btn btn-primary me-2">
-            Edit Profile
+          <button
+            className="btn btn-primary me-2"
+            onClick={() => setEditing(!editing)}
+          >
+            {editing ? "Save Profile" : "Edit Profile"}
           </button>
 
           <button className="btn btn-outline-secondary">

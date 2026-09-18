@@ -1,77 +1,124 @@
+"use client";
+
+import { useState } from "react";
 import DashboardLayout from "../../components/DashboardLayout";
-import ChatUserCard from "../../components/ChatUserCard";
-import RideMessage from "../../components/RideMessage";
 
 export default function RideChatPage() {
+  const [messages, setMessages] = useState([
+    {
+      sender: "Rahul Reddy",
+      message: "Hi everyone! Is anyone traveling to Uppal tomorrow morning?",
+      time: "8:30 AM",
+    },
+    {
+      sender: "You",
+      message: "Yes, I am traveling around 8:30 AM.",
+      time: "8:32 AM",
+    },
+    {
+      sender: "Priya Sharma",
+      message: "Great! I can join the ride.",
+      time: "8:35 AM",
+    },
+  ]);
+
+  const [input, setInput] = useState("");
+
+  const sendMessage = () => {
+    if (!input.trim()) return;
+
+    const newMessage = {
+      sender: "You",
+      message: input.trim(),
+      time: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    };
+
+    setMessages((prev) => [...prev, newMessage]);
+    setInput("");
+  };
+
   return (
     <DashboardLayout
       title="Ride Chat"
-      subtitle="Chat with your ride partners."
+      subtitle="Communicate with your ride members."
     >
       <div className="card shadow border-0 rounded-4">
-        <div className="row g-0">
+        <div className="card-body p-4">
 
-          {/* Left Panel */}
-          <div className="col-md-4 border-end">
+          {/* Chat Messages */}
+          <div
+            style={{
+              minHeight: "400px",
+              maxHeight: "450px",
+              overflowY: "auto",
+              padding: "10px",
+            }}
+          >
+            {messages.map((msg, index) => (
+              <div
+                key={index}
+                className={`d-flex mb-3 ${
+                  msg.sender === "You"
+                    ? "justify-content-end"
+                    : "justify-content-start"
+                }`}
+              >
+                <div
+                  style={{
+                    maxWidth: "70%",
+                    padding: "12px 16px",
+                    borderRadius: "15px",
+                    background:
+                      msg.sender === "You" ? "#2563eb" : "#f1f5f9",
+                    color: msg.sender === "You" ? "white" : "#111827",
+                  }}
+                >
+                  <div className="fw-bold mb-1">
+                    {msg.sender}
+                  </div>
 
-            <ChatUserCard
-              name="Rahul Reddy"
-              lastMessage="See you at 8:30 AM."
-              active
-            />
+                  <div>{msg.message}</div>
 
-            <ChatUserCard
-              name="Priya Sharma"
-              lastMessage="Ride confirmed."
-            />
-
-            <ChatUserCard
-              name="Sai Kumar"
-              lastMessage="Where are you?"
-            />
-
+                  <small
+                    style={{
+                      opacity: 0.7,
+                      display: "block",
+                      marginTop: "5px",
+                    }}
+                  >
+                    {msg.time}
+                  </small>
+                </div>
+              </div>
+            ))}
           </div>
 
-          {/* Right Panel */}
-          <div className="col-md-8 p-4">
+          <hr />
 
-            <div
-              style={{
-                minHeight: "400px",
-                maxHeight: "420px",
-                overflowY: "auto",
+          {/* Message Input */}
+          <div className="input-group mt-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Type a message..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  sendMessage();
+                }
               }}
+            />
+
+            <button
+              className="btn btn-primary"
+              onClick={sendMessage}
             >
-              <RideMessage
-                sender="other"
-                message="Hi! Are you coming?"
-              />
-
-              <RideMessage
-                sender="me"
-                message="Yes, I'll be there in 5 minutes."
-              />
-
-              <RideMessage
-                sender="other"
-                message="Great! I'm waiting near the college gate."
-              />
-            </div>
-
-            <hr />
-
-            <div className="input-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Type a message..."
-              />
-
-              <button className="btn btn-primary">
-                Send
-              </button>
-            </div>
-
+              Send
+            </button>
           </div>
 
         </div>
